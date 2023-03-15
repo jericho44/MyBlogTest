@@ -2,5 +2,15 @@
 
 ## About Laravel
 
-run php artisan db:seed all role password = password
+run php artisan migrate --seed
+
+## Role Admin
+username = admin
+email = email@example.com
+password = password
+
+## Role User
+username = user
+email = user@example.com
+password = password
 
