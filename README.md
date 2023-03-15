@@ -5,12 +5,12 @@
 run php artisan migrate --seed
 
 ## Role Admin
-username = admin
-email = email@example.com
-password = password
+-username = admin
+-email = admin@example.com
+-password = password
 
 ## Role User
-username = user
-email = user@example.com
-password = password
+-username = user
+-email = user@example.com
+-password = password
 
