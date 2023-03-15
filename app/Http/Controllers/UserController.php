@@ -43,9 +43,12 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:8',
             'role' => 'required',
         ]);
+        $params['password'] = bcrypt($request['password']);
+        $role = $request['role'];
+        $params['role'] = (int)$role;
 
         if (User::create($params)) {
-            return view('app');
+            return redirect()->route('users.index');
         }
         return redirect()->back();
     }
@@ -86,10 +89,13 @@ class UserController extends Controller
         $params = $this->validate($request, [
             'name' => 'required|max:55',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:8',
-            'role' => 'required',
         ]);
-        $params['password'] = bcrypt($params['password']);
+        if (isset($request['password'])) {
+            $params['password'] = bcrypt($request['password']);
+        }
+
+        $role = $request['role'];
+        $params['role'] = (int)$role;
 
         $user = User::findOrFail($id);
         if ($user->update($params)) {

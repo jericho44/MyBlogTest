@@ -63,7 +63,7 @@
                 <label for="name" class="col-md-4 col-form-label text-md-end">Role</label>
 
                 <div class="col-md-6">
-                    <select name="role" id="" class="form-control">
+                    <select name="role" id="role" class="form-control">
                         <option value="0">User</option>
                         <option value="1">Admin</option>
                     </select>

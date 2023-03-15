@@ -8,10 +8,12 @@
                     <th>No.</th>
                     <th>Name User</th>
                     <th>Name Email</th>
+                    <th>Role</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                <a href="{{ route('users.create') }}" class="mb-3 btn btn-primary">Add User</a>
                 @foreach ($users as $user)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
