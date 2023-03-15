@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 
 class PostConstroller extends Controller
@@ -13,6 +15,9 @@ class PostConstroller extends Controller
      */
     public function index()
     {
+        $posts = Post::OrderBy('id', 'asc')->get();
+
+        return view('pages.post.index', compact('posts'));
     }
 
     /**
@@ -33,7 +38,15 @@ class PostConstroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $params = $this->validate($request, [
+            'title' => 'required|max:55',
+            'description' => 'required',
+        ]);
+
+        if (Post::create($params)) {
+            return view('app');
+        }
+        return redirect()->route('post.create');
     }
 
     /**
@@ -55,7 +68,9 @@ class PostConstroller extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('pages.post.edit', compact('post'));
     }
 
     /**
@@ -67,7 +82,17 @@ class PostConstroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $params = $this->validate($request, [
+            'title' => 'required|max:55',
+            'description' => 'required',
+        ]);
+
+        $post = Post::findOrFail($id);
+
+        if ($post->update($params)) {
+            return redirect()->route('post.index');
+        }
+        return redirect()->route('post.index');
     }
 
     /**
@@ -78,6 +103,10 @@ class PostConstroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $post->delete();
+
+        return redirect()->route('post.index');
     }
 }

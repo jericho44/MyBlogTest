@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('app');
+    return redirect()->route('post.index');
 });
 
 Route::resource('/post', PostConstroller::class);
