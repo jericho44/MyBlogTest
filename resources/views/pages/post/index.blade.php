@@ -3,6 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
+            <a href="{{ route('post.create') }}" class="btn btn-primary">Tambah Post</a>
             @foreach ($posts as $post)
                 <h2>{{ $post->title }}</h2>
                 <p>{{ $post->description }}</p>

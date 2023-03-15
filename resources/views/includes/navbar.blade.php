@@ -24,20 +24,40 @@
                 <li class="nav-item text-center mx-2 mx-lg-1">
                     <a class="nav-link" href="{{ route('post.index') }}">
                         <i class="fas fa-bell fa-lg mb-1"></i>
-                        Add Post
+                        Post
                     </a>
                 </li>
-                <li class="nav-item text-center mx-2 mx-lg-1">
-                    <a class="nav-link" href="#!">
-                        <i class="fas fa-globe-americas fa-lg mb-1"></i>
-                        Add User
-                    </a>
-                </li>
+                @if (Auth::user()->role === 1)
+                    <li class="nav-item text-center mx-2 mx-lg-1">
+                        <a class="nav-link" href="{{ route('users.index') }}">
+                            <i class="fas fa-globe-americas fa-lg mb-1"></i>
+                            Add User
+                        </a>
+                    </li>
+                @endif
             </ul>
 
-            <a class="btn btn-primary" type="button">
-                Login
-            </a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="btn-group" role="group">
+                        <a class="text-white" style="text-decoration: none" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i
+                                class="nav-icon fas fa-sign-out-alt"></i> &nbsp; Log
+                            Out</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href=""
+                                onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

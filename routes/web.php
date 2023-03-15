@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\PostConstroller;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +20,14 @@ Route::get('/', function () {
     return redirect()->route('post.index');
 });
 
-Route::resource('/post', PostConstroller::class);
+Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(
+    function () {
+        Route::resource('/users', UserController::class);
+    }
+);
+
+Route::resource('/post', PostConstroller::class)->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
